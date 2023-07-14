@@ -591,25 +591,19 @@
                     "type": "object",
                     "properties": {
                       "totalPaid": "integer",
-                      "firstName": "string",
-                      "lastName": "string",
-                      "id": "integer",
-                      "profession": "string"
+                      "fullName": "string",
+                      "id": "integer"
                     },
                     "example": [
                       {
                         "totalPaid": 2020,
-                        "firstName": "Ash",
-                        "lastName": "Kethcum",
-                        "id": 4,
-                        "profession": "Pokemon master"
+                        "fullName": "Ash Kethcum",
+                        "id": 4
                       },
                       {
                         "totalPaid": 442,
-                        "firstName": "Mr",
-                        "lastName": "Robot",
-                        "id": 2,
-                        "profession": "Hacker"
+                        "fullName": "Mr Robot",
+                        "id": 2
                       }
                     ]
                   }

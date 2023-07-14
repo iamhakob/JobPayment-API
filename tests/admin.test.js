@@ -74,28 +74,22 @@ describe('Admin', () => {
       expect(body).toContainEqual(
         expect.objectContaining({
           totalPaid: 2020,
-          firstName: 'Ash',
-          lastName: 'Kethcum',
+          fullName: 'Ash Kethcum',
           id: 4,
-          profession: 'Pokemon master',
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
           totalPaid: 442,
-          firstName: 'Mr',
-          lastName: 'Robot',
+          fullName: 'Mr Robot',
           id: 2,
-          profession: 'Hacker',
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
           totalPaid: 442,
-          firstName: 'Harry',
-          lastName: 'Potter',
+          fullName: 'Harry Potter',
           id: 1,
-          profession: 'Wizard',
         }),
       );
     });
@@ -112,19 +106,15 @@ describe('Admin', () => {
       expect(body).toContainEqual(
         expect.objectContaining({
           totalPaid: 2020,
-          firstName: 'Ash',
-          lastName: 'Kethcum',
+          fullName: 'Ash Kethcum',
           id: 4,
-          profession: 'Pokemon master',
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
           totalPaid: 442,
-          firstName: 'Mr',
-          lastName: 'Robot',
+          fullName: 'Mr Robot',
           id: 2,
-          profession: 'Hacker',
         }),
       );
     });

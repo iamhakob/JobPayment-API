@@ -56,10 +56,8 @@ async function getBestClients(start, end, limit) {
     },
     attributes: [
       [sequelize.fn('sum', sequelize.col('price')), 'totalPaid'],
-      [sequelize.col('Contract.Client.firstName'), 'firstName'],
-      [sequelize.col('Contract.Client.lastName'), 'lastName'],
+      [sequelize.literal("firstName || ' ' || lastName"), 'fullName'],
       [sequelize.col('Contract.Client.id'), 'id'],
-      [sequelize.col('Contract.Client.profession'), 'profession'],
     ],
     order: [['totalPaid', 'DESC']],
     group: ['Contract.Client.id'],

@@ -499,15 +499,23 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "total": "integer",
-                    "profession": "string"
-                  },
-                  "example": {
-                    "total": 2683,
-                    "profession": "Programmer"
-                  }
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "total": "integer",
+                        "profession": "string"
+                      },
+                      "example": {
+                        "total": 2683,
+                        "profession": "Programmer"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
               }
             }

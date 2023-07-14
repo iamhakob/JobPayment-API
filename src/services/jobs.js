@@ -45,7 +45,7 @@ async function getClientJobById(jobId, clientId, transaction) {
         },
       ],
     },
-    { ...(transaction ? { transaction } : {}) }
+    { transaction }
   );
 }
 

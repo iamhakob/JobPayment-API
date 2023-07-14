@@ -31,7 +31,7 @@ async function getUnpaidJobsTotal(clientId, transaction) {
 async function getClientById(clientId, transaction) {
   return Profile.findOne(
     { where: { id: clientId } },
-    { ...(transaction ? { transaction } : {}) },
+    { transaction },
   );
 }
 

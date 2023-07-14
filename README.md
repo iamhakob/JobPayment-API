@@ -1,3 +1,39 @@
+# DEEL BACKEND TASK SOLUTION
+
+## Listed Requirements
+* Fixed the bug(s) left.
+* Implemented all of the listed endpoints of the API.
+* Added validations for API endpoints with Joi.
+* Added swagger documentation of the API, see http://localhost:3001/api/docs
+
+## Beyond the requirements | Bonus
+* Wrote API tests using Jest 
+* Added one more API endpoint POST /balances/transfer/:userId to make transfers through the client's accounts
+  
+   (see more in [/src/routes/balances.js](https://github.com/iamhakob/JobPayment-API/blob/main/src/routes/balances.js) file)
+
+## Improvements
+Due to the short timing, I left out several things that I think are important
+* In ideal design we would not want our services to depend on our DB models, to enable easy unit testing of our services (easy mocking) in the future. But in the scope of this exercise given the time constraints, I didn't implement it that way
+* Currently the API tests use our seedDB, and every time we run our tests they vanish the DB. We could have a separate DB for testing to avoid vanishing the main DB during each test. Since the DB was a dummy in this exercise, I did not want to spend time on that.
+* Would also love to have admin type of profiles in our DB, since now any profile can use the endpoints for Admin.
+* Would also be nice to break the models down into separate files, but since it was provided initially did not spend time on that either.
+
+## Technical Notes
+
+Did not change anything here, the steps to start the server is the same. 
+
+1. run `npm install` to gather all dependencies.
+
+2. `npm run seed` will seed the local SQLite database. The database lives in `database.sqlite3` file.
+
+3. Then run `npm start`, which starts the server on `3001` port.
+
+4. You may run the tests with `npm run test`.
+
+
+    
+
 # DEEL BACKEND TASK
 
 💫 Welcome! 🎉

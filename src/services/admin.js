@@ -33,6 +33,7 @@ async function getBestProfession(start, end) {
       },
     ],
     limit: 1,
+    raw: true,
   });
 
   if (!jobs.length) {
@@ -55,6 +56,10 @@ async function getBestClients(start, end, limit) {
     },
     attributes: [
       [sequelize.fn('sum', sequelize.col('price')), 'totalPaid'],
+      [sequelize.col('Contract.Client.firstName'), 'firstName'],
+      [sequelize.col('Contract.Client.lastName'), 'lastName'],
+      [sequelize.col('Contract.Client.id'), 'id'],
+      [sequelize.col('Contract.Client.profession'), 'profession'],
     ],
     order: [['totalPaid', 'DESC']],
     group: ['Contract.Client.id'],
@@ -74,6 +79,7 @@ async function getBestClients(start, end, limit) {
       },
     ],
     limit,
+    raw: true,
   });
 }
 

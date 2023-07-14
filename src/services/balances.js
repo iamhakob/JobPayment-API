@@ -18,6 +18,7 @@ async function getUnpaidJobsTotal(clientId, transaction) {
           required: true,
           attributes: [],
           where: {
+            //assuming that jobs to pay means, not yet terminated
             status: { [Op.ne]: 'terminated' },
             ClientId: clientId,
           },

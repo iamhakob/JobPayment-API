@@ -2,7 +2,9 @@ require('express-async-errors');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerExpress = require('swagger-ui-express');
 
+const swaggerDoc = require('./documentation/swagger.json');
 const { getProfile } = require('./middleware');
 const ApiError = require('./apiError');
 const { sequelize } = require('./model');
@@ -13,6 +15,9 @@ const app = express();
 app.use(bodyParser.json());
 app.set('sequelize', sequelize);
 app.set('models', sequelize.models);
+
+app.use('/api/docs', swaggerExpress.serve);
+app.get('/api/docs', swaggerExpress.setup(swaggerDoc));
 
 app.use(getProfile);
 app.use(router);

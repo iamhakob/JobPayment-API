@@ -1,0 +1,636 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Job Payments API"
+  },
+  "paths": {
+    "/contracts": {
+      "get": {
+        "summary": "Returns a list of active contracts belonging to a user (client or contractor).",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of active contracts belonging to a user (client or contractor)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": "integer",
+                      "terms": "string",
+                      "status": "string",
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "ContractorId": "integer",
+                      "ClientId": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "id": 7,
+                  "terms": "bla bla bla",
+                  "status": "in_progress",
+                  "createdAt": "2020-01-01T08:42:58.109Z",
+                  "updatedAt": "2020-01-01T08:42:58.109Z",
+                  "ContractorId": 7,
+                  "ClientId": 4
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contracts/{id}": {
+      "get": {
+        "summary": "Get contract of the profile by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Id of the contract",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract of the profile by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": "integer",
+                    "terms": "string",
+                    "status": "string",
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "ContractorId": "integer",
+                    "ClientId": "integer"
+                  }
+                },
+                "example": {
+                  "id": 7,
+                  "terms": "bla bla bla",
+                  "status": "in_progress",
+                  "createdAt": "2020-06-13T08:42:58.109Z",
+                  "updatedAt": "2020-06-13T08:42:58.109Z",
+                  "ContractorId": 7,
+                  "ClientId": 4
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No contract found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "no contract found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/unpaid": {
+      "get": {
+        "summary": "Get all the unpaid jobs for the profile that are not terminated by contract",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All the unpaid jobs for the profile that are not terminated by contract",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": "integer",
+                      "description": "string",
+                      "price": "integer",
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "ContractId": "integer"
+                    },
+                    "example": {
+                      "id": 3,
+                      "description": "work",
+                      "price": 202,
+                      "paid": null,
+                      "paymentDate": null,
+                      "createdAt": "2020-01-01T08:42:58.109Z",
+                      "updatedAt": "2020-01-01T08:42:58.109Z",
+                      "ContractId": 3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/{id}/pay": {
+      "post": {
+        "summary": "Pay for a job by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Job Id",
+            "required": true,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully paid",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "OK"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Job is paid or Not enough balance",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not enough balance"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Associated job is not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No associated job found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/balances/deposit/{userId}": {
+      "post": {
+        "summary": "Deposit into client's balance",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "Client id to deposit into",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "body",
+            "name": "deposit",
+            "description": "How much to deposit into (in USD)",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deposit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deposited",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "OK"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such client found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No such client found"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Exceed the 25 percent of total unpaid jobs of the client",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "$100 is exceeds the 25 percent of total ($200) unpaid jobs"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/balances/transfer/{userId}": {
+      "post": {
+        "summary": "Transfer from one client's balance into another client's balance",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile to transfer from",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "Client id to transfer",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "body",
+            "name": "deposit",
+            "description": "How much to transfer into (in USD)",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deposit": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully transferred",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "OK"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such client found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "No such client found"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not enough balance or Exceed the 25 percent of total unpaid jobs of the client",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "$100 is exceeds the 25 percent of total ($200) unpaid jobs"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can't transfer to your own balance",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid params: can't transfer to yourself"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/best-profession": {
+      "get": {
+        "summary": "[ADMIN] Best profession in the given time range",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "description": "Start of the range",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "description": "End of the range",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The best profession",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": "integer",
+                    "profession": "string"
+                  },
+                  "example": {
+                    "total": 2683,
+                    "profession": "Programmer"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params: end date can't be sooner than the start date",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid params: end date can't be sooner than the start date"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/best-clients": {
+      "get": {
+        "summary": "[ADMIN]: Best clients in the given time range",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "profile_id",
+            "required": true,
+            "description": "Id of the profile",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "type": "string",
+            "description": "Start of the range",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "type": "string",
+            "description": "End of the range",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Number of clients to return",
+            "type": "integer",
+            "required": false,
+            "default": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Best clients list sorted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "totalPaid": "integer",
+                      "firstName": "string",
+                      "lastName": "string",
+                      "id": "integer",
+                      "profession": "string"
+                    },
+                    "example": [
+                      {
+                        "totalPaid": 2020,
+                        "firstName": "Ash",
+                        "lastName": "Kethcum",
+                        "id": 4,
+                        "profession": "Pokemon master"
+                      },
+                      {
+                        "totalPaid": 442,
+                        "firstName": "Mr",
+                        "lastName": "Robot",
+                        "id": 2,
+                        "profession": "Hacker"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid params: end date can't be sooner than the start date",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid params: end date can't be sooner than the start date"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

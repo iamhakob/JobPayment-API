@@ -1,21 +1,39 @@
+require('express-async-errors');
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const {sequelize} = require('./model')
-const {getProfile} = require('./middleware/getProfile')
-const app = express();
-app.use(bodyParser.json());
-app.set('sequelize', sequelize)
-app.set('models', sequelize.models)
 
-/**
- * FIX ME!
- * @returns contract by id
- */
-app.get('/contracts/:id',getProfile ,async (req, res) =>{
-    const {Contract} = req.app.get('models')
-    const {id} = req.params
-    const contract = await Contract.findOne({where: {id}})
-    if(!contract) return res.status(404).end()
-    res.json(contract)
-})
+const { getProfile } = require('./middleware');
+const ApiError = require('./apiError');
+const { sequelize } = require('./model');
+const router = require('./routes');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.set('sequelize', sequelize);
+app.set('models', sequelize.models);
+
+app.use(getProfile);
+app.use(router);
+
+app.use((error, req, res, next) => {
+  if (error instanceof ApiError) {
+    res.status(error.code);
+    res.json({
+      error: error.message,
+    });
+    return;
+  }
+  // Bad request general error
+  res.status(500);
+  res.json({ error: 'Something went wrong' });
+});
+
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'not found endpoint',
+  });
+});
+
 module.exports = app;

@@ -5,16 +5,20 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "4.17.1",
+    "express-async-errors": "^3.1.1",
+    "joi": "^17.9.2",
     "sequelize": "^6.23.0",
     "sqlite3": "^5.0.0"
   },
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "seed": "node ./scripts/seedDb.js"
+    "seed": "node ./scripts/seedDb.js",
+    "prettier": "prettier \"./**/*.js\" --write"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "prettier": "^3.0.0"
   },
   "engines": {
     "node": ">=10.16.3"

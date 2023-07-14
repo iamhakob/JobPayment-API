@@ -39,7 +39,7 @@ async function seed() {
       firstName: 'Ash',
       lastName: 'Kethcum',
       profession: 'Pokemon master',
-      balance: 1.3,
+      balance: 401,
       type: 'client',
     }),
     Profile.create({

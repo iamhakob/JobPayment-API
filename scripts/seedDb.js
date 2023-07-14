@@ -1,14 +1,11 @@
 const { Profile, Contract, Job } = require('../src/model');
 
-/* WARNING THIS WILL DROP THE CURRENT DATABASE */
-seed();
-
 async function seed() {
   // create tables
   await Profile.sync({ force: true });
   await Contract.sync({ force: true });
   await Job.sync({ force: true });
-  //insert data
+  // insert data
   await Promise.all([
     Profile.create({
       id: 1,
@@ -74,6 +71,14 @@ async function seed() {
       balance: 314,
       type: 'contractor',
     }),
+    Profile.create({
+      id: 9,
+      firstName: 'Johny',
+      lastName: 'Depp',
+      profession: 'Actor',
+      balance: 5,
+      type: 'client',
+    }),
     Contract.create({
       id: 1,
       terms: 'bla bla bla',
@@ -136,6 +141,13 @@ async function seed() {
       status: 'in_progress',
       ClientId: 4,
       ContractorId: 8,
+    }),
+    Contract.create({
+      id: 10,
+      terms: 'bla bla bla',
+      status: 'terminated',
+      ClientId: 9,
+      ContractorId: 5,
     }),
     Job.create({
       description: 'work',
@@ -225,5 +237,15 @@ async function seed() {
       paymentDate: '2020-08-14T23:11:26.737Z',
       ContractId: 3,
     }),
+    Job.create({
+      id: 40,
+      description: 'work',
+      price: 100,
+      ContractId: 10,
+    }),
   ]);
 }
+
+module.exports = {
+  seed,
+};

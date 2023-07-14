@@ -73,21 +73,21 @@ describe('Admin', () => {
       expect(body).toHaveLength(3);
       expect(body).toContainEqual(
         expect.objectContaining({
-          totalPaid: 2020,
+          paid: 2020,
           fullName: 'Ash Kethcum',
           id: 4,
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
-          totalPaid: 442,
+          paid: 442,
           fullName: 'Mr Robot',
           id: 2,
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
-          totalPaid: 442,
+          paid: 442,
           fullName: 'Harry Potter',
           id: 1,
         }),
@@ -105,14 +105,14 @@ describe('Admin', () => {
       expect(body).toHaveLength(2);
       expect(body).toContainEqual(
         expect.objectContaining({
-          totalPaid: 2020,
+          paid: 2020,
           fullName: 'Ash Kethcum',
           id: 4,
         }),
       );
       expect(body).toContainEqual(
         expect.objectContaining({
-          totalPaid: 442,
+          paid: 442,
           fullName: 'Mr Robot',
           id: 2,
         }),

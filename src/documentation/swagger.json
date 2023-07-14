@@ -590,18 +590,18 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "totalPaid": "integer",
+                      "paid": "integer",
                       "fullName": "string",
                       "id": "integer"
                     },
                     "example": [
                       {
-                        "totalPaid": 2020,
+                        "paid": 2020,
                         "fullName": "Ash Kethcum",
                         "id": 4
                       },
                       {
-                        "totalPaid": 442,
+                        "paid": 442,
                         "fullName": "Mr Robot",
                         "id": 2
                       }

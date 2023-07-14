@@ -30,7 +30,7 @@ Profile.init(
   {
     sequelize,
     modelName: 'Profile',
-  }
+  },
 );
 
 class Contract extends Sequelize.Model {}
@@ -47,7 +47,7 @@ Contract.init(
   {
     sequelize,
     modelName: 'Contract',
-  }
+  },
 );
 
 class Job extends Sequelize.Model {}
@@ -72,7 +72,7 @@ Job.init(
   {
     sequelize,
     modelName: 'Job',
-  }
+  },
 );
 
 Profile.hasMany(Contract, { as: 'Contractor', foreignKey: 'ContractorId' });

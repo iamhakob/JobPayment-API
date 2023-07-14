@@ -1,5 +1,7 @@
 const { Op } = require('sequelize');
-const { Job, Contract, Profile, sequelize } = require('../model');
+const {
+  Job, Contract, Profile, sequelize,
+} = require('../model');
 const ApiError = require('../apiError');
 
 async function getProfileUnpaidJobs(profileId) {
@@ -45,7 +47,7 @@ async function getClientJobById(jobId, clientId, transaction) {
         },
       ],
     },
-    { transaction }
+    { transaction },
   );
 }
 
@@ -60,11 +62,11 @@ async function payJob(jobId, clientId) {
 
     const contractorPromise = Profile.findOne(
       { where: { id: contractorId } },
-      { transaction: t }
+      { transaction: t },
     );
     const clientPromise = Profile.findOne(
       { where: { id: clientId } },
-      { transaction: t }
+      { transaction: t },
     );
     // creating the two promises above, then awaiting them together to make it parralel
     // if there were more than two operations we would use Promise.all to do the same
